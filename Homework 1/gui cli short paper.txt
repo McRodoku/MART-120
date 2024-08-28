@@ -1,0 +1,5 @@
+Chance Salois
+Homework 1
+
+GUI (Graphical User Interface) and CLI (Command Line Interface) are two ways that you can interact with 
+your computer. The main difference between the two is that a GUI uses visual elements to allow users to interact with the computer. Command Line Interface is purely text-based. You have to input specific commands to interact with your computer.  
