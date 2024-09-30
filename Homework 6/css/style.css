@@ -121,6 +121,33 @@ header {
     }
 }
 
+.mainimage2 {
+    margin: auto; /* Center the image */
+    display: block; /* Ensure the image is treated as a block element */
+    max-width: 100%; /* Ensure the image does not exceed its container's width */
+    content:url("../images/bunny.jpg");
+}
+
+@media only screen and (min-width: 550px) {
+    .mainimage2{
+        content:url("../images/bunny.jpg");
+    }
+}
+
+
+.mainimage3 {
+    margin: auto; /* Center the image */
+    display: block; /* Ensure the image is treated as a block element */
+    max-width: 100%; /* Ensure the image does not exceed its container's width */
+    content:url("../images/snail.jpg");
+}
+
+@media only screen and (min-width: 550px) {
+    .mainimage3{
+        content:url("../images/snail.jpg");
+    }
+}
+
 form {
     margin: 20px auto;
     max-width: 400px;
