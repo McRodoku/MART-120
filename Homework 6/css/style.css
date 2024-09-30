@@ -1,0 +1,158 @@
+body{
+    background-color: #DCDCDC;
+    text-align: center;
+}
+
+h1{
+    font-family: FBSuperFun;
+    font-size: 200px;
+    background-color: #FFD700;
+    border: 2px black solid;
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+    height: 200px;
+    text-align: center;
+}
+    
+div{
+    font-family: Zipper-Regular;
+    border: 1px black solid;
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+    font-size: 50px;
+    text-align: center;
+}
+
+div1{
+    font-family: Zipper-Regular;
+    font-size: 25px;
+    text-align: center;
+}
+
+strong {
+    font-family: Zipper-Regular;
+    font-size: 50px;
+    text-align: center;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #DCDCDC;
+    font-family: Zipper-Regular;
+    text-transform: uppercase;
+    margin-top: 0;
+    height: 4em;
+    width: 100%;
+    text-align: center;
+}
+
+/* Set the layout of the menu: */
+.menu-item {
+    display: inline-block;
+    min-width: 6em;
+    text-align: center;
+    background-color: #DCDCDC;
+}
+
+/* Style the links: */
+.menu-item a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    background-color: #DCDCDC;
+   
+}
+
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    border: 1px solid #000;
+    margin-top: 0;
+    color: #000;
+    background-color: #DCDCDC;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #000;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    text-align: center;
+    margin: 0;
+    margin-top: 0;
+    padding: 0.5em 1em 0.5em 1em;
+    min-width: 5.9em;
+}
+
+.dropdown-item:hover, .dropdown-item:hover a {
+    color: black;
+    background-color: #DCDCDC;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.mainimage {
+    margin: auto; /* Center the image */
+    display: block; /* Ensure the image is treated as a block element */
+    max-width: 100%; /* Ensure the image does not exceed its container's width */
+    content:url("../images/stock_cel.jpeg");
+}
+
+@media only screen and (min-width: 550px) {
+    .mainimage{
+        content:url("../images/stock_cel.jpeg");
+    }
+}
+
+form {
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
