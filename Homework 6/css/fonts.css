@@ -1,1 +1,10 @@
+@font-face{
+    font-family:'Zipper-Regular';
+    src: url('../fonts/Zipper-Regular.ttf') format('truetype');
+          }
 
+
+@font-face{
+    font-family:'FBSuperFun';
+    src: url('../fonts/FBSuperFun.otf') format('opentype');
+          }
