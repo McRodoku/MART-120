@@ -4,7 +4,7 @@ body{
 }
 
 body1{
-    <p style="background-image: url("../images/Space.jpg");">
+    background-image: url("../images/Space.jpg");
     text-align: center;
 }
 
