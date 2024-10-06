@@ -3,6 +3,11 @@ body{
     text-align: center;
 }
 
+body1{
+    background-color: "../images/bunny.jpg";
+    text-align: center;
+}
+
 h1{
     font-family: FBSuperFun;
     font-size: 200px;
