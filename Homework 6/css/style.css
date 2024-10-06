@@ -3,9 +3,9 @@ body{
     text-align: center;
 }
 
-body2{
-    background-color: #DCDCDC;
+body.about-page {
     background-image: url("../images/Space.jpg");
+    background-color: #DCDCDC;
     text-align: center;
 }
 
