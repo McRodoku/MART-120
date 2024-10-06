@@ -4,8 +4,9 @@ body{
 }
 
 body1{
-    background-color: 
+    background-color: "../images/bunny.jpg"
     text-align: center;
+}
 
 h1{
     font-family: FBSuperFun;
