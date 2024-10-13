@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Basic Math Game">
+    <title>Basic Math Game</title>
+
+    <!-- Add some basic styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            width: 80px;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #submit-answer {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        #submit-answer:hover {
+            background-color: #45a049;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #score {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Basic Math Game</h1>
+    <div class="game-container">
+        <div id="question"></div>
+        <input type="number" id="answer" placeholder="Your answer" />
+        <br>
+        <button id="submit-answer">Submit</button>
+
+        <div id="feedback"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+    <script>
+        // Initialize variables
+        let num1, num2, correctAnswer;
+        let score = 0;
+
+        // Function to generate a new question
+        function generateQuestion() {
+            num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+            num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+            correctAnswer = num1 + num2;
+            
+            // Display the question
+            document.getElementById("question").innerHTML = `What is ${num1} + ${num2}?`;
+        }
+
+        // Function to check the user's answer
+        function checkAnswer() {
+            let userAnswer = parseInt(document.getElementById("answer").value);
+
+            if (userAnswer === correctAnswer) {
+                // If correct, increase the score and give feedback
+                score++;
+                document.getElementById("feedback").innerHTML = "Correct!";
+                document.getElementById("feedback").style.color = "green";
+            } else {
+                // If incorrect, give feedback
+                document.getElementById("feedback").innerHTML = `Wrong! The correct answer was ${correctAnswer}.`;
+                document.getElementById("feedback").style.color = "red";
+            }
+
+            // Update the score display
+            document.getElementById("score").innerHTML = `Score: ${score}`;
+
+            // Clear the answer input and generate a new question
+            document.getElementById("answer").value = "";
+            generateQuestion();
+        }
+
+        // Event listener for the "Submit" button
+        document.getElementById("submit-answer").addEventListener("click", checkAnswer);
+
+        // Generate the first question when the game starts
+        window.onload = generateQuestion;
+    </script>
+
+</body>
+</html>
