@@ -69,9 +69,28 @@
             }
         }
 
-        // Attach the function to the form submit event
+        function toggleToS(checkedBoxId) {
+            // Get both checkboxes
+            var agreeBox = document.getElementById("yes");
+            var disagreeBox = document.getElementById("no");
+
+            // If the user checks "yes", uncheck "no", and vice versa
+            if (checkedBoxId === "yes" && agreeBox.checked) {
+                disagreeBox.checked = false;
+            } else if (checkedBoxId === "no" && disagreeBox.checked) {
+                agreeBox.checked = false;
+            }
+        }
+
+        // Attach the functions to the form submit event and ToS checkboxes
         window.onload = function () {
             document.getElementById("submit").addEventListener("click", checkboxes);
+            document.getElementById("yes").addEventListener("change", function () {
+                toggleToS("yes");
+            });
+            document.getElementById("no").addEventListener("change", function () {
+                toggleToS("no");
+            });
         };
     </script>
 </head>
