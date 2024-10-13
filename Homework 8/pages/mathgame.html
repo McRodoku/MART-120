@@ -6,7 +6,6 @@
     <meta name="description" content="Basic Math Game">
     <title>Basic Math Game</title>
 
-    <!-- Add some basic styling -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,7 +61,7 @@
     <h1>Basic Math Game</h1>
     <div class="game-container">
         <div id="question"></div>
-        <input type="number" id="answer" />
+        <input type="number" id="answer" placeholder="Your answer" />
         <br>
         <button id="submit-answer">Submit</button>
 
@@ -74,15 +73,33 @@
         // Initialize variables
         let num1, num2, correctAnswer;
         let score = 0;
+        let questionCount = 0;
+        const totalQuestions = 10;
 
         // Function to generate a new question
         function generateQuestion() {
+            if (questionCount >= totalQuestions) {
+                // Game over, calculate percentage score and display it
+                let percentageScore = (score / totalQuestions) * 100;
+                document.getElementById("question").innerHTML = "Game Over!";
+                document.getElementById("feedback").innerHTML = `Your score: ${percentageScore}% (${score}/${totalQuestions})`;
+                document.getElementById("feedback").style.color = "blue";
+                // Disable input and button
+                document.getElementById("answer").disabled = true;
+                document.getElementById("submit-answer").disabled = true;
+                return;
+            }
+
+            // Increment question count
+            questionCount++;
+
+            // Generate two random numbers for addition
             num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
             num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
             correctAnswer = num1 + num2;
-            
+
             // Display the question
-            document.getElementById("question").innerHTML = `What is ${num1} + ${num2}?`;
+            document.getElementById("question").innerHTML = `Question ${questionCount}: What is ${num1} + ${num2}?`;
         }
 
         // Function to check the user's answer
