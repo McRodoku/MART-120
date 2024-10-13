@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="author" content="Chance Salois">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/fonts.css" type="text/css" />
-    <link rel="stylesheet" href="./css/style.css" type="text/css" />
     <meta name="description" content="Basic Math Game">
     <title>Basic Math Game</title>
 
+    <!-- styling -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,59 +61,72 @@
 
     <h1>Basic Math Game</h1>
     <div class="game-container">
+        <!-- The question will be displayed here -->
         <div id="question"></div>
-        <input type="number" id="answer" />
+
+        <!-- Input field for the user's answer -->
+        <input type="number" id="answer" placeholder="Your answer" />
         <br>
+
+        <!-- Button to submit the answer -->
         <button id="submit-answer">Submit</button>
 
+        <!-- Feedback for the user's answer (Correct/Wrong) -->
         <div id="feedback"></div>
+
+        <!-- Score display -->
         <div id="score">Score: 0</div>
     </div>
 
     <script>
-        // Initialize variables
-        let num1, num2, correctAnswer;
-        let score = 0;
-        let questionCount = 0;
-        const totalQuestions = 10;
+        // Initialize game variables
+        let num1, num2, correctAnswer; // Variables for the random numbers and the correct answer
+        let score = 0; // The user's score
+        let questionCount = 0; // Number of questions asked so far
+        const totalQuestions = 10; // Total number of questions in the game
 
-        // Function to generate a new question
+        // Function to generate a new math question
         function generateQuestion() {
+            // Check if the number of questions asked has reached the total number of questions
             if (questionCount >= totalQuestions) {
-                // Game over, calculate percentage score and display it
+                // If yes, end the game and calculate the final score percentage
                 let percentageScore = (score / totalQuestions) * 100;
+                // Display the final score and disable input
                 document.getElementById("question").innerHTML = "Game Over!";
                 document.getElementById("feedback").innerHTML = `Your score: ${percentageScore}% (${score}/${totalQuestions})`;
                 document.getElementById("feedback").style.color = "blue";
-                // Disable input and button
+                // Disable input and submit button to prevent further interaction
                 document.getElementById("answer").disabled = true;
                 document.getElementById("submit-answer").disabled = true;
-                return;
+                return; // Exit the function
             }
 
-            // Increment question count
+            // Increment the question count
             questionCount++;
 
-            // Generate two random numbers for addition
-            num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
-            num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+            // Generate two random numbers between 1 and 10 for the math question
+            num1 = Math.floor(Math.random() * 10) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            // Calculate the correct answer
             correctAnswer = num1 + num2;
 
-            // Display the question
+            // Display the current question
             document.getElementById("question").innerHTML = `Question ${questionCount}: What is ${num1} + ${num2}?`;
         }
 
-        // Function to check the user's answer
+        // Function to check if the user's answer is correct
         function checkAnswer() {
+            // Get the user's answer from the input field
             let userAnswer = parseInt(document.getElementById("answer").value);
 
+            // Check if the user's answer matches the correct answer
             if (userAnswer === correctAnswer) {
-                // If correct, increase the score and give feedback
+                // If the answer is correct, increase the score and provide positive feedback
                 score++;
                 document.getElementById("feedback").innerHTML = "Correct!";
                 document.getElementById("feedback").style.color = "green";
             } else {
-                // If incorrect, give feedback
+                // If the answer is incorrect, provide feedback with the correct answer
                 document.getElementById("feedback").innerHTML = `Wrong! The correct answer was ${correctAnswer}.`;
                 document.getElementById("feedback").style.color = "red";
             }
@@ -122,15 +134,17 @@
             // Update the score display
             document.getElementById("score").innerHTML = `Score: ${score}`;
 
-            // Clear the answer input and generate a new question
+            // Clear the input field for the next question
             document.getElementById("answer").value = "";
+
+            // Generate the next question
             generateQuestion();
         }
 
-        // Event listener for the "Submit" button
+        // Event listener for the "Submit" button to check the user's answer when clicked
         document.getElementById("submit-answer").addEventListener("click", checkAnswer);
 
-        // Generate the first question when the game starts
+        // Generate the first question when the page loads
         window.onload = generateQuestion;
     </script>
 
