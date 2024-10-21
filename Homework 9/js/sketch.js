@@ -23,4 +23,7 @@ function draw()
   point(250,300);
   point(200,300);
   line(400,400,100,435);
+  fill(120);
+  textSize(22);
+  text("Chance Salois",270,500 );
 }
