@@ -7,6 +7,8 @@ function setup()
 function draw()
 {
   background(150, 75, 200);
+  textSize(22)
+  text("How I feel about Mondays...", 110,590);
   fill(200, 100, 50);
   circle(100, 75, 100);
   circle(325, 75, 100);
@@ -23,7 +25,7 @@ function draw()
   point(250,300);
   point(200,300);
   line(400,400,100,435);
-  fill(120);
-  textSize(22);
-  text("Chance Salois",270,500 );
+  fill(0);
+  textSize(25);
+  text("Chance Salois",150,550 );
 }
