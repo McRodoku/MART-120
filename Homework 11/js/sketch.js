@@ -3,7 +3,6 @@ const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 600;
-document.body.appendChild(canvas);
 
 // Log to confirm canvas creation
 console.log('Canvas created, dimensions:', canvas.width, canvas.height);
