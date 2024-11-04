@@ -1,9 +1,12 @@
-// Set up the canvas
+// Create and set up the canvas
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 600;
 document.body.appendChild(canvas);
+
+// Log to confirm canvas creation
+console.log('Canvas created, dimensions:', canvas.width, canvas.height);
 
 // Player object
 const player = {
@@ -100,6 +103,7 @@ function checkExit() {
     player.y < exit.y + exit.size
   ) {
     drawMessage("You won!");
+    console.log("Player reached the exit");
     return true;
   }
   return false;
@@ -124,10 +128,12 @@ function gameLoop() {
 // Event listeners
 document.addEventListener('keydown', (e) => {
   if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
+  console.log(`Key down: ${e.key}`);
 });
 
 document.addEventListener('keyup', (e) => {
   if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
+  console.log(`Key up: ${e.key}`);
 });
 
 canvas.addEventListener('click', (e) => {
@@ -138,8 +144,10 @@ canvas.addEventListener('click', (e) => {
       size: 40,
       color: 'orange',
     };
+    console.log('Static obstacle added at:', staticObstacle.x, staticObstacle.y);
   }
 });
 
 // Start the game
+console.log("Starting game loop...");
 gameLoop();
