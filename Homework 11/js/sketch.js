@@ -1,159 +1,145 @@
-// x and y for my character
-var characterX = 100;
-var characterY = 100;
-// define the key codes for each letter
-var w = 87; 
-var s = 83;
-var a = 65;
-var d = 68;
+// Set up the canvas
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 800;
+canvas.height = 600;
+document.body.appendChild(canvas);
 
-// x and y for a shape
-var shapeX = 30;
-var shapeY = 50;
-var shapeXSpeed;
-var shapeYSpeed;
+// Player object
+const player = {
+  x: 50,
+  y: 50,
+  size: 20,
+  color: 'blue',
+  speed: 5,
+};
 
-// create a shape when the mouse is clicked
-var mouseShapeX;
-var mouseShapeY;
-function setup()
-{
-    createCanvas(500, 600);
-    // get a random speed when the it first starts
-    shapeXSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
-    shapeYSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
-    createCharacter(200,350);
+// Exit object
+const exit = {
+  x: canvas.width - 60,
+  y: canvas.height - 60,
+  size: 40,
+  color: 'green',
+};
+
+// Obstacles array (moving obstacles)
+const obstacles = [
+  { x: 100, y: 150, size: 30, color: 'red', dx: 2, dy: 2 },
+  { x: 200, y: 300, size: 50, color: 'purple', dx: -3, dy: 2 },
+];
+
+// Additional non-moving obstacle
+let staticObstacle = null;
+
+// Draw the player, obstacles, exit, and message
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.size, player.size);
 }
 
-function draw()
-{
-    background(120,45,78);
-    stroke(0);
-    fill(0);
-    
-    // call createBorders function
-    createBorders(10);
+function drawObstacles() {
+  obstacles.forEach(obstacle => {
+    ctx.fillStyle = obstacle.color;
+    ctx.fillRect(obstacle.x, obstacle.y, obstacle.size, obstacle.size);
+  });
 
-    // exit message
-    textSize(16);
-    text("EXIT", width-50,height-50)
-
-    //createCharacter(200,350);
-    drawCharacter();
-    characterMovement();
-
-
-    // potential enemy
-    fill(13,145,14);
-    // draw the shape
-    circle(shapeX, shapeY, 10);
-
-     // get a random speed when the it first starts
-     shapeXSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
-     shapeYSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
-
-    // move the shape
-    shapeX += shapeXSpeed;
-    shapeY += shapeYSpeed;
-    // check to see if the shape has gone out of bounds
-    if(shapeX > width)
-    {
-        shapeX = 0;
-    }
-    if(shapeX < 0)
-    {
-        shapeX = width;
-    }
-    if(shapeY > height)
-    {
-        shapeY = 0;
-    }
-    if(shapeY < 0)
-    {
-        shapeY = height;
-    }
-
-    // check to see if the character has left the exit
-    if(characterX > width && characterY > width-50)
-    {
-        fill(0);
-        stroke(5);
-        textSize(26);
-        text("You Win!", width/2-50, height/2-50);
-    }
-
-    // create the shape based on the mouse click
-    fill(120,130,140);
-    circle(mouseShapeX, mouseShapeY, 25);
-}
-
-function characterMovement()
-{
-    // handle the keys
-    if(keyIsDown(w))
-    {
-        characterY -= 10;   
-    }
-    if(keyIsDown(s))
-    {
-        characterY += 10;   
-    }
-    if(keyIsDown(a))
-    {
-        characterX -= 10;   
-        console.log("movement: " + characterX);
-    }
-    if(keyIsDown(d))
-    {
-        characterX += 10;   
-    }
-}
-function createCharacter(x,y)
-{
-    characterX = x;
-    characterY = y;
-    console.log(characterX);
-    //character
-    
-   // circle(characterX,characterY,25);
-}
-
-function drawCharacter()
-{
-    fill(23,40,123);
-    circle(characterX,characterY,25);
-}
-function createBorders(thickness)
-{
-    // top border
-    rect(0,0,width,thickness);
-    // left border
-    rect(0,0,thickness,height);
-    // bottom border
-    rect(0, height-thickness,width, thickness);
-    // right upper border
-    rect(width-thickness,0,thickness,height-50);
-}
-
-function mouseClicked()
-{
-    mouseShapeX = mouseX;
-    mouseShapeY = mouseY;
-}
-/*
-function keyPressed() {
-    if (keyCode === LEFT_ARROW) {
-        characterX -= 10;
-    } 
-    else if (keyCode === RIGHT_ARROW) {
-        characterX += 10;
-    }
-    else if (keyCode === UP_ARROW) {
-        characterY -= 10;
-    }
-    else if (keyCode === DOWN_ARROW) {
-        characterY += 10;
-    }
-
+  // Draw static obstacle if it exists
+  if (staticObstacle) {
+    ctx.fillStyle = staticObstacle.color;
+    ctx.fillRect(staticObstacle.x, staticObstacle.y, staticObstacle.size, staticObstacle.size);
   }
-  */
+}
+
+function drawExit() {
+  ctx.fillStyle = exit.color;
+  ctx.fillRect(exit.x, exit.y, exit.size, exit.size);
+}
+
+function drawMessage(message) {
+  ctx.font = '30px Arial';
+  ctx.fillStyle = 'black';
+  ctx.fillText(message, canvas.width / 2 - 100, canvas.height / 2);
+}
+
+// Update player position based on key presses
+const keys = {
+  ArrowUp: false,
+  ArrowDown: false,
+  ArrowLeft: false,
+  ArrowRight: false,
+};
+
+function movePlayer() {
+  if (keys.ArrowUp && player.y > 0) player.y -= player.speed;
+  if (keys.ArrowDown && player.y < canvas.height - player.size) player.y += player.speed;
+  if (keys.ArrowLeft && player.x > 0) player.x -= player.speed;
+  if (keys.ArrowRight && player.x < canvas.width - player.size) player.x += player.speed;
+}
+
+// Update obstacle positions and wrap around screen edges
+function moveObstacles() {
+  obstacles.forEach(obstacle => {
+    obstacle.x += obstacle.dx;
+    obstacle.y += obstacle.dy;
+
+    // Wrap around the canvas edges
+    if (obstacle.x > canvas.width) obstacle.x = 0;
+    else if (obstacle.x < 0) obstacle.x = canvas.width;
+
+    if (obstacle.y > canvas.height) obstacle.y = 0;
+    else if (obstacle.y < 0) obstacle.y = canvas.height;
+  });
+}
+
+// Check if player reached the exit
+function checkExit() {
+  if (
+    player.x + player.size > exit.x &&
+    player.x < exit.x + exit.size &&
+    player.y + player.size > exit.y &&
+    player.y < exit.y + exit.size
+  ) {
+    drawMessage("You won!");
+    return true;
+  }
+  return false;
+}
+
+// Main game loop
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawPlayer();
+  drawObstacles();
+  drawExit();
+
+  movePlayer();
+  moveObstacles();
+
+  if (!checkExit()) {
+    requestAnimationFrame(gameLoop);
+  }
+}
+
+// Event listeners
+document.addEventListener('keydown', (e) => {
+  if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
+});
+
+document.addEventListener('keyup', (e) => {
+  if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
+});
+
+canvas.addEventListener('click', (e) => {
+  if (!staticObstacle) {
+    staticObstacle = {
+      x: e.clientX - canvas.offsetLeft,
+      y: e.clientY - canvas.offsetTop,
+      size: 40,
+      color: 'orange',
+    };
+  }
+});
+
+// Start the game
+gameLoop();
